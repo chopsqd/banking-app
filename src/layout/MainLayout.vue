@@ -1,5 +1,5 @@
 <template>
-  <Navbar/>
+  <navbar/>
   <div class="container with-nav">
     <router-view/>
   </div>
@@ -15,7 +15,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

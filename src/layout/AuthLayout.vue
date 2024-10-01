@@ -13,7 +13,3 @@ export default {
   components: {AppMessage}
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

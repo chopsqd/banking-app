@@ -34,17 +34,19 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  linkActiveClass: 'active',
+  linkExactActiveClass: 'active'
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.auth && store.getters['auth/isAuthenticated']) {
-    next()
-  } else if (to.meta.auth && !store.getters['auth/isAuthenticated']) {
-    next('/auth?message=auth')
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.auth && store.getters['auth/isAuthenticated']) {
+//     next()
+//   } else if (to.meta.auth && !store.getters['auth/isAuthenticated']) {
+//     next('/auth?message=auth')
+//   } else {
+//     next()
+//   }
+// })
 
 export default router
