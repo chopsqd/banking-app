@@ -37,7 +37,7 @@
                   }"
                 >
                     <button
-                      class="btn primary"
+                      class="btn"
                       @click="navigate"
                     >
                         Открыть

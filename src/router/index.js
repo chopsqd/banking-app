@@ -22,6 +22,15 @@ const routes = [
     }
   },
   {
+    path: '/request/:id',
+    name: 'Request',
+    component: () => import('../views/Request.vue'),
+    meta: {
+      layout: 'main',
+      auth: true
+    }
+  },
+  {
     path: '/auth',
     name: 'Auth',
     component: () => import('../views/Auth.vue'),
@@ -39,14 +48,14 @@ const router = createRouter({
   linkExactActiveClass: 'active'
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.meta.auth && store.getters['auth/isAuthenticated']) {
-//     next()
-//   } else if (to.meta.auth && !store.getters['auth/isAuthenticated']) {
-//     next('/auth?message=auth')
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth && store.getters['auth/isAuthenticated']) {
+    next()
+  } else if (to.meta.auth && !store.getters['auth/isAuthenticated']) {
+    next('/auth?message=auth')
+  } else {
+    next()
+  }
+})
 
 export default router

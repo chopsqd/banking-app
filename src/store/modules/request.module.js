@@ -44,6 +44,48 @@ export default {
           text: error.message
         }, {root: true})
       }
+    },
+    async loadById({dispatch}, id) {
+      try {
+        const token = store.getters["auth/token"]
+        const {data} = await requestAxios.get(`/requests/${id}.json?auth=${token}`)
+        return data
+      } catch (error) {
+        dispatch('error/setMessage', {
+          type: 'danger',
+          text: error.message
+        }, {root: true})
+      }
+    },
+    async remove({dispatch}, id) {
+      try {
+        const token = store.getters["auth/token"]
+        await requestAxios.delete(`/requests/${id}.json?auth=${token}`)
+        dispatch('error/setMessage', {
+          type: 'primary',
+          text: 'Заявка удалена'
+        }, {root: true})
+      } catch (error) {
+        dispatch('error/setMessage', {
+          type: 'danger',
+          text: error.message
+        }, {root: true})
+      }
+    },
+    async update({dispatch}, payload) {
+      try {
+        const token = store.getters["auth/token"]
+        await requestAxios.put(`/requests/${payload.id}.json?auth=${token}`, payload)
+        dispatch('error/setMessage', {
+          type: 'primary',
+          text: 'Заявка обновлена'
+        }, {root: true})
+      } catch (error) {
+        dispatch('error/setMessage', {
+          type: 'danger',
+          text: error.message
+        }, {root: true})
+      }
     }
   },
   getters: {
