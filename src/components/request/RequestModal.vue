@@ -2,20 +2,20 @@
     <form @submit.prevent="onSubmit">
         <div :class="['form-control', {invalid: fError}]">
             <label for="fio">ФИО</label>
-            <input type="text" id="fio" v-model="fio" @blur="fBlur" />
-            <small v-if="fError">{{fError}}</small>
+            <input type="text" id="fio" v-model="fio" @blur="fBlur"/>
+            <small v-if="fError">{{ fError }}</small>
         </div>
 
         <div :class="['form-control', {invalid: pError}]">
             <label for="phone">Телефон</label>
-            <input type="text" id="phone" v-model="phone" @blur="pBlur" />
-            <small v-if="pError">{{pError}}</small>
+            <input type="text" id="phone" v-model="phone" @blur="pBlur"/>
+            <small v-if="pError">{{ pError }}</small>
         </div>
 
         <div :class="['form-control', {invalid: aError}]">
             <label for="amount">Сумма</label>
-            <input type="number" id="amount" v-model.number="amount" @blur="aBlur" />
-            <small v-if="aError">{{aError}}</small>
+            <input type="number" id="amount" v-model.number="amount" @blur="aBlur"/>
+            <small v-if="aError">{{ aError }}</small>
         </div>
 
         <div class="form-control">
@@ -29,9 +29,9 @@
         </div>
 
         <button
-          class="btn primary"
-          type="submit"
-          :disabled="isSubmitting"
+            class="btn primary"
+            type="submit"
+            :disabled="isSubmitting"
         >
             Создать
         </button>
@@ -40,15 +40,19 @@
 
 <script>
 import {useRequestForm} from "@/use/request-form";
+import {useStore} from "vuex";
 
 export default {
-    emits: ['created'],
-    setup(_, {emit}) {
-        const handleSubmit = async (values) => {
-            emit('created')
-        }
+  emits: ['created'],
+  setup(_, {emit}) {
+    const store = useStore()
 
-        return {...useRequestForm(handleSubmit)}
+    const handleSubmit = async (values) => {
+      await store.dispatch('request/create', values)
+      emit('created')
     }
+
+    return {...useRequestForm(handleSubmit)}
+  }
 }
 </script>
